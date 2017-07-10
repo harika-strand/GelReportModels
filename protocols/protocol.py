@@ -154,11 +154,11 @@ class ProtocolElement(object):
         """
         if verbose:
             validation_result = ValidationResult()
-            return cls.validate_debug(jsonDict=jsonDict, validation_result=validation_result)
+            return cls.validate_verbose(jsonDict=jsonDict, validation_result=validation_result)
         return avro.io.validate(expected_schema=cls.schema, datum=jsonDict)
 
     @classmethod
-    def validate_debug(cls, jsonDict, validation_result, expected_schema=None):
+    def validate_verbose(cls, jsonDict, validation_result, expected_schema=None):
         """
         Returns ValidationResult with fields:
                 - result (True or False)
@@ -243,14 +243,20 @@ class ProtocolElement(object):
             if not any([avro.io.validate(s, datum) for s in expected_schema.schemas]):
                 for expected_schema in expected_schema.schemas:
                     if not avro.io.validate(expected_schema=expected_schema, datum=datum):
-                        validation_result.update_simple(
-                            expected_schema=expected_schema.values, schema_type=expected_schema.values.type, datum=datum
-                        )
+                        try:
+                            validation_result.update_simple(
+                                expected_schema=expected_schema.values, schema_type=expected_schema.values.type, datum=datum
+                            )
+                        except AttributeError:
+                            validation_result.update_simple(
+                                expected_schema=expected_schema, schema_type=expected_schema.type, datum=datum
+                            )
+
         elif schema_type in ['record', 'error', 'request']:
             if isinstance(datum, dict):
                 for f in expected_schema.fields:
                     if not avro.io.validate(expected_schema=f.type, datum=datum.get(f.name)):
-                        cls.validate_debug(
+                        cls.validate_verbose(
                             jsonDict=datum.get(f.name),
                             validation_result=validation_result,
                             expected_schema=f.type)
