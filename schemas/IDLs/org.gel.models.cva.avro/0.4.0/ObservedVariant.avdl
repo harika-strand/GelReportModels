@@ -2,11 +2,11 @@
 
 protocol ObservedVariantProtocol {
 
+    import idl "Variant.avdl";
     // Report models references
     import idl "../../org.gel.models.report.avro/4.0.0/CommonInterpreted.avdl";
     import idl "../../org.gel.models.participant.avro/1.0.2/CommonParticipant.avdl";
     // OpenCB references
-    import idl "../../org.opencb.biodata.models/1.2.0-SNAPSHOT/variant.avdl";
     import idl "../../org.opencb.biodata.models/1.2.0-SNAPSHOT/evidence.avdl";
 
     /**
@@ -45,9 +45,13 @@ Duplication of the prior fields is not be supported.
         */
         string date;
         /**
+        The reference genome assembly
+        */
+        string assembly;
+        /**
         The abstract variant
         */
-        org.opencb.biodata.models.variant.avro.VariantAvro variant;
+        VariantWrapper variant;
 
         // Data for RD program //
         /**

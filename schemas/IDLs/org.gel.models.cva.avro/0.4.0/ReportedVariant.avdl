@@ -84,6 +84,10 @@ Duplication of the prior fields is not be supported.
         */
         string date;
         /**
+        The reference genome assembly
+        */
+        string assembly;
+        /**
         The author of the ReportedVariant, either tiering, exomiser, a given cip (e.g.: omicia) or a given GMCs user name
         */
         string author;

@@ -1,0 +1,31 @@
+@namespace("org.gel.models.cva.avro")
+
+protocol VariantProtocol {
+
+    // OpenCB references
+    import idl "../../org.opencb.biodata.models/1.2.0-SNAPSHOT/variant.avdl";
+
+    /**
+    A variant in a given assembly
+    */
+    record Variant {
+        /**
+        The assembly that corresponds to the variant
+        */
+        string assembly;
+        /**
+        The abstract variant
+        */
+        org.opencb.biodata.models.variant.avro.VariantAvro variant;
+    }
+
+    /**
+    A set of variants.
+    */
+    record VariantWrapper {
+        /**
+        The list of variants in teh wrapper
+        */
+        array<Variant> variants = [];
+    }
+}
