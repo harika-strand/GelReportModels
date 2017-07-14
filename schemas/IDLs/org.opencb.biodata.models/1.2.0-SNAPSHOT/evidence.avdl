@@ -454,10 +454,6 @@ Evidence of benign impact:
         */
         union {null, string} id;
         /**
-        The reference genome assembly
-        */
-        union {null, string} assembly;
-        /**
         List of allele origins
         */
         union {null, array<AlleleOrigin>} alleleOrigin;
