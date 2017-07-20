@@ -20,6 +20,15 @@ class TestGenerateMockObjects4(TestCase):
         self.assertTrue(isinstance(test_ig_rd, self.model.InterpretedGenomeRD))
         self.assertTrue(test_ig_rd.validate(test_ig_rd.toJsonDict()))
 
+    def test_interpretation_request_rd(self):
+        """
+        Ensure generate_mock_objects.get_valid_interpretation_request_rd_4_0_0 returns a valid
+        reports_4_0_0.InterpretationRequestRD object
+        """
+        test_ir_rd = generate_mock_objects.get_valid_interpretation_request_rd_4_0_0()
+        self.assertTrue(isinstance(test_ir_rd, self.model.InterpretationRequestRD))
+        self.assertTrue(test_ir_rd.validate(test_ir_rd.toJsonDict()))
+
 
 class TestGenerateMockObjects31(TestCase):
 
